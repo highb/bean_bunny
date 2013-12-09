@@ -32,7 +32,7 @@ YUBNUB_URL = "http://yubnub.org/parser/parse?command="
 GOOGLE_SEARCH_URL = "http://www.google.com/search?q="
 GOOGLE_LUCKY_SEARCH_URL = "http://www.google.com/search?btnI&q="
 
-DEFAULT_FALLBACK_URL = YUBNUB_URL
+DEFAULT_FALLBACK_URL = GOOGLE_SEARCH_URL
 DEFAULT_COMMAND = "help"
 DEFAULT_PORT = 9084
 
