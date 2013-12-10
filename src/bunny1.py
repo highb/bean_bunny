@@ -314,7 +314,7 @@ class Bunny1Commands(object):
 
     def __init__(self):
         self.history = []
-        self.fallback_url = YUBNUB_URL
+        self.fallback_url = GOOGLE_SEARCH_URL
         self.popularity = {}
 
     @dont_expose

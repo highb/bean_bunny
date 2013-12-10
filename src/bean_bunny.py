@@ -180,7 +180,6 @@ class BeanCommands(bunny1.Bunny1Commands):
                     "pd types",
                     "pf mysql",
                     "hc enterprise",
-                    "meet",
                     "j PE-1234",
                     "gm all@puppetlabs.com",
                     "c onboarding",
@@ -244,7 +243,11 @@ small {
 <p>Or you can see <a href="?list">a list of shortcuts you can use</a> with this example server.</p>
 
 <h3>Installing on Google Chrome</h3>
-<ul>Choose <code>Options</code> from the wrench menu to the right of the location bar in Chrome, then under the section <code>Default Search</code>, click the <code>Manage</code> button.  Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>b1</code>, and <code>""" + self._base_url() + """?</code>.  Hit <code>OK</code> and then select """ + name + """ from the list of search engines and hit the <code>Make Default</code> button to make """ + name + """ your default search engine.  Type <code>list</code> into your location bar to see a list of commands you can use.</ul>
+<ul>Choose <code>Settings</code> from the wrench menu to the right of the location bar in Chrome.</ul>
+<ul>Under the section <code>Search</code>, click the <code>Manage search engines...</code> button.</ul>
+<ul>Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>b1</code>, and <code>""" + self._base_url() + """?</code>.</ul>
+<ul>Hit <code>OK</code> and then select """ + name + """ from the list of search engines and hit the <code>Make Default</code> button to make """ + name + """ your default search engine.</ul>
+<ul>Type <code>list</code> into your location bar to see a list of commands you can use.</ul>
 
 <h3>Installing on Firefox</h3>
 <ul>Type <code>about:config</code> into your location bar in Firefox.</ul>
