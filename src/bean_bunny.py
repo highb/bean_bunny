@@ -159,6 +159,11 @@ class BeanCommands(bunny1.Bunny1Commands):
             return "http://forge.puppetlabs.com/"
     pf = puppet_forge
 
+    def directory(self, arg):
+        """Company directory"""
+        return "https://sites.google.com/a/puppetlabs.com/main/company-information/directory"
+    d = directory
+
     @dont_expose
     def _help_html(self, examples=None, name="bean_bunny"):
         """the help page that gets shown if no command or 'help' is entered
