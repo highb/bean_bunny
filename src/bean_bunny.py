@@ -182,7 +182,7 @@ class BeanCommands(bunny1.Bunny1Commands):
                     "hc enterprise",
                     "meet",
                     "j PE-1234",
-                    "gm all@puppetlabs.com"
+                    "gm all@puppetlabs.com",
                     "c onboarding",
                     "gs onboarding",
                     "gh puppetlabs",
