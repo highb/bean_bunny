@@ -13,6 +13,6 @@ setup(
     packages=["bunny1"],
     package_dir={"bunny1": "src"},
     package_data={"bunny1": ["README", "LICENSE", "*.gif", "*.ico"]},
-    scripts=["src/b1_example.py", "src/b1_barebones.py"],
+    scripts=["src/b1_example.py", "src/b1_barebones.py", "src/bean_bunny.py"],
     install_requires=["cherrypy>=3.1.0"],
 )
