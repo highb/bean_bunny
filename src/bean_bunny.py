@@ -177,9 +177,16 @@ class BeanCommands(bunny1.Bunny1Commands):
 
         if not examples:
             examples = [
-                    "g whizbang api reference",
+                    "pd types",
+                    "pf mysql",
+                    "hc enterprise",
+                    "meet",
                     "j PE-1234",
+                    "gm all@puppetlabs.com"
                     "c onboarding",
+                    "gs onboarding",
+                    "gh puppetlabs",
+                    "g whizbang api reference",
                     ]
 
         return """
