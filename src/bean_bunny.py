@@ -245,14 +245,12 @@ small {
 <h3>Installing on Google Chrome</h3>
 <ul>Choose <code>Settings</code> from the wrench menu to the right of the location bar in Chrome.</ul>
 <ul>Under the section <code>Search</code>, click the <code>Manage search engines...</code> button.</ul>
-<ul>Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>b1</code>, and <code>""" + self._base_url() + """?</code>.</ul>
+<ul>Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>bb</code>, and <code>""" + self._base_url() + """?%s</code>.</ul>
 <ul>Hit <code>OK</code> and then select """ + name + """ from the list of search engines and hit the <code>Make Default</code> button to make """ + name + """ your default search engine.</ul>
 <ul>Type <code>list</code> into your location bar to see a list of commands you can use.</ul>
 
 <h3>Installing on Firefox</h3>
-<ul>Type <code>about:config</code> into your location bar in Firefox.</ul>
-<ul>Set the value of keyword.URL to be <code>""" + self._base_url() + """?</code></ul>
-<ul>Make sure you include the <code>http://</code> at the beginning and the <code>?</code> at the end.</ul>
+<ul>Choose <code>Add "bean_bunny"</code> from the search engine dropdown in the upper right.</ul>
 <ul>Now, type <code>list</code> or <code>wp FBML</code> into your location bar and hit enter.</ul>
 <ul>Also, if you are a Firefox user and find bunny1 useful, you should check out <a href="http://labs.mozilla.com/projects/ubiquity/">Ubiquity</a>.</ul>
 

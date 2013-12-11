@@ -8,6 +8,7 @@ import urllib
 import urlparse
 import optparse
 import socket
+import json
 
 from urllib import quote as q
 from urllib import quote_plus as qp
@@ -109,9 +110,20 @@ class Bunny1(object):
 
         return self.do_command(raw, a, k)
 
+    def do_suggest(self, arg=''):
+        if len(arg) > 1:
+            comp = []
+            desc = []
+            for name, method in self.commands._list(arg):
+                comp.append(name)
+                desc.append(escape(method.__doc__))
+            j = [arg, comp, desc]
+        else:
+            j = [arg, [], []]
+        return json.dumps(j) 
+
     def do_command(self, raw, a=(), k={}):
         """does the specified command"""
-
         self.commands.history.append(raw)
         if not raw:
             raw = DEFAULT_COMMAND
@@ -125,6 +137,10 @@ class Bunny1(object):
             except ValueError:
                 method = raw
                 arg = ""
+
+            if 'suggest' in a:
+                return self.do_suggest(k.setdefault('q', ''))
+
             if method.startswith("@") and method != "@":
                 try:
                     d = getattr(self.decorators, method[1:])
@@ -409,7 +425,23 @@ class Bunny1Commands(object):
 
     def list(self, arg):
         """show the list of methods you can use or search that list"""
+        if arg:
+            html = ""
+        else:
+            html = self._popularity_html(10) + "<hr ><b><i>All Commands</i></b><br />"
 
+        html += '<table>'
+        html += ''.join(
+            ['<tr><td><b>%s</b></td><td>%s</td></tr>' % (name, escape(method.__doc__)) for
+             name, method in self._list(arg)])
+        html += '<table>'
+
+        raise Content(html)
+    ls = list
+    commands = list
+
+    @dont_expose
+    def _list(self, arg):
         def is_exposed_method( (name, method) ):
             return not name.startswith("__") and callable(method) \
                        and method.__doc__ and not getattr(method, "dont_expose", False) \
@@ -418,27 +450,15 @@ class Bunny1Commands(object):
         arg_lower = None
         if arg:
             arg_lower = arg.lower()
-            html = ""
             search_predicate = lambda (name, method): is_exposed_method((name,method)) and \
                                (arg_lower in name.lower() or arg_lower in method.__doc__)
         else:
-            html = self._popularity_html(10) + "<hr ><b><i>All Commands</i></b><br />"
             search_predicate = is_exposed_method
 
         attr_names = dir(self)
-
         def attr_getter(name): return getattr(self, name)
-
-        html += '<table>'
-        html += ''.join(
-            ['<tr><td><b>%s</b></td><td>%s</td></tr>' % (name, escape(method.__doc__)) for
-             name, method in ifilter(search_predicate,
-                                     izip(attr_names, imap(attr_getter, attr_names)))])
-        html += '<table>'
-
-        raise Content(html)
-    ls = list
-    commands = list
+        return ifilter(search_predicate,
+                                     izip(attr_names, imap(attr_getter, attr_names)))
 
     def echo(self, arg):
         """returns back what you give to it"""
@@ -543,9 +563,11 @@ class Bunny1Commands(object):
     def _opensearch_metadata(self):
         """metadata about this server"""
         return {
-                "short_name": "bunny1",
-                "description": "bunny1",
+                "short_name": "bean_bunny",
+                "description": "bean_bunny",
+                "opensearch": self._my_url() + "?_opensearch",
                 "template": self._my_url() + "?{searchTerms}",
+                "suggestions": self._my_url() + "suggest?q={searchTerms}",
             }
 
     def _opensearch(self, arg):
@@ -556,7 +578,9 @@ class Bunny1Commands(object):
     <ShortName>""" + m["short_name"] + """</ShortName>
     <Description>""" + m["description"] + """</Description>
     <InputEncoding>UTF-8</InputEncoding>
-    <Url type="text/html" template=\"""" + escape(m["template"]) + """\" />
+    <Url type="text/html" method="get" template=\"""" + escape(m["template"]) + """\" />
+    <Url type="application/opensearchdescription+xml" rel="self" template=\"""" + m["opensearch"] + """\" />
+    <Url type="application/x-suggestions+json" rel="suggestions" template=\"""" + m["suggestions"] + """\" />
   </OpenSearchDescription>
   """, "application/xml")
 
