@@ -245,7 +245,7 @@ small {
 <h3>Installing on Google Chrome</h3>
 <ul>Choose <code>Settings</code> from the wrench menu to the right of the location bar in Chrome.</ul>
 <ul>Under the section <code>Search</code>, click the <code>Manage search engines...</code> button.</ul>
-<ul>Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>bb</code>, and <code>""" + self._base_url() + """?%s</code>.</ul>
+<ul>Click the <code>Add</code> button and then fill in the fields name, keyword, and URL with <code>""" + name + """</code>, <code>bb</code>, and <code>""" + self._base_url() + """?%s</code></ul>
 <ul>Hit <code>OK</code> and then select """ + name + """ from the list of search engines and hit the <code>Make Default</code> button to make """ + name + """ your default search engine.</ul>
 <ul>Type <code>list</code> into your location bar to see a list of commands you can use.</ul>
 
