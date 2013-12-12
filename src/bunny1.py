@@ -365,7 +365,7 @@ class Bunny1Commands(object):
 
     # _info provides some useful debugging information but this information
     # may be sensitive so we don't expose this command by default
-    #@dont_expose
+    @dont_expose
     def _info(self, arg):
         """shows some info about this instance of bunny1"""
         raise Content("<code>" + repr({
@@ -474,6 +474,7 @@ class Bunny1Commands(object):
         import socket
         raise Content(socket.gethostname())
 
+    @unlisted
     def _cookies(self, arg):
         """show the cookies set on this server or search through them"""
         cookie = cherrypy.request.cookie
@@ -516,10 +517,12 @@ class Bunny1Commands(object):
         cherrypy.response.cookie["alias." + arg]["expires"] = 0
         raise Content("unaliased <b>%s</b>" % escape(arg))
 
+    @unlisted
     def _source(self, arg):
         """goes to the source code for bunny1 (this utility)"""
         return "http://github.com/ccheever/bunny1/tree/master"
 
+    @unlisted
     def _test(self, arg):
         """tests a command on a different bunny1 host.  usage: _test [fully-qualified-bunny1-url] [command]"""
         (bunny1_url, arg) = arg.split(None, 1)
@@ -528,6 +531,7 @@ class Bunny1Commands(object):
         save("bunny1testurl", bunny1_url)
         raise HTTPRedirect(bunny1_url + q(arg))
 
+    @unlisted
     def _t(self, arg):
         """tests a command on the most recently used bunny1 host.  usage: _t [command]"""
         bunny1_url = load("bunny1testurl")
@@ -570,6 +574,7 @@ class Bunny1Commands(object):
                 "suggestions": self._my_url() + "suggest?q={searchTerms}",
             }
 
+    @unlisted
     def _opensearch(self, arg):
         """returns the OpenSearch description for this server"""
         m = self._opensearch_metadata()
