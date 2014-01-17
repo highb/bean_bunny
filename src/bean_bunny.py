@@ -318,7 +318,7 @@ small {
 
 <p>Type something like """ + " or ".join(["""<a href="#" onclick="return false;"><code onclick="document.getElementById('b1cmd').value = this.innerHTML; return true;">""" + x + "</code></a>" for x in examples]) + """.</p>
 
-<p>Or you can see <a href="?list">a list of shortcuts you can use</a> with this example server.</p>
+<p>Or you can see <a href="?list">a list of shortcuts you can use</a> with this server.</p>
 
 <h3>Installing on Google Chrome</h3>
 <ul>Choose <code>Settings</code> from the wrench menu to the right of the location bar in Chrome.</ul>
