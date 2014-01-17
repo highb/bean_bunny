@@ -311,7 +311,7 @@ small {
 <body>
 <h1 class="header-placeholder"><img class="header" src="header.png" /></h1>
 
-<p>""" + name + """ is a tool that lets you write smart bookmarks in python and then share them across all your browsers and with a group of people or the whole world.  It was developed at <a href="http://www.facebook.com/">Facebook</a> and is widely used there.</p>
+<p>""" + name + """ is a tool that lets you write smart bookmarks in python and then share them across all your browsers and with a group of people or the whole world. bean_bunny is a fork of <a href="https://github.com/ccheever/bunny1">bunny1</a> which was developed at <a href="http://www.facebook.com/">Facebook</a> and was widely used there.</p>
 
 <form method="GET">
 <p style="width: 820px; text-align: center;"><input class="test-query-input" id="b1cmd" type="text" name="___" value=""" + '"' + escape(random.choice(examples)) + '"' + """/> <input type="submit" value=" try me "/></p>
