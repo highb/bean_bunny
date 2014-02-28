@@ -29,22 +29,27 @@ class BeanCommands(bunny1.Bunny1Commands):
     def builds(self, arg):
         """Builds server"""
         return "http://builds.puppetlabs.lan/"
-    bu = builds        
+    bu = builds
 
     def confluence_page(self, arg):
         """Jump to Confluence wiki page"""
-        return "https://confluence.puppetlabs.com/display/%s" % q(arg) 
+        return "https://confluence.puppetlabs.com/display/%s" % q(arg)
     cp = confluence_page
 
     def confluence_search(self, arg):
         """Search Confluence wiki"""
-        return "https://confluence.puppetlabs.com/dosearchsite.action?queryString=%s" % qp(arg) 
+        return "https://confluence.puppetlabs.com/dosearchsite.action?queryString=%s" % qp(arg)
     c = confluence_search
 
     def concur(self, arg):
         """Concur expense tracking"""
         return "https://www.concursolutions.com/"
     co = concur
+
+    def dashboard(self, arg):
+        """Engineering dashboards"""
+        return "https://confluence.puppetlabs.com/display/ENG/Engineering+Dashboard"
+    dash = dashboard
 
     def directory(self, arg):
         """Company directory"""
@@ -98,6 +103,14 @@ class BeanCommands(bunny1.Bunny1Commands):
             return "https://drive.google.com/a/puppetlabs.com/?tab=mo#my-drive"
     gd = gdrive
 
+    def ggroups(self, arg):
+        """Open/search Google Groups"""
+        if len(arg) > 0:
+            return "https://groups.google.com/a/puppetlabs.com/forum/#!search/%s" % qp(arg)
+        else:
+            return "https://groups.google.com/a/puppetlabs.com"
+    gg = ggroups
+
     def hipchat(self, arg):
         """Open hipchat client or search hipchat logs"""
         if len(arg) > 0:
@@ -112,11 +125,26 @@ class BeanCommands(bunny1.Bunny1Commands):
         return "https://confluence.puppetlabs.com/display/IT/HipChat+Emoticons"
 
     def jenkins(self, arg):
-        """Jenkins testing dashboard"""
+        """Jenkins testing dashboard. USAGE: jenkins|ci f(oss)|d(elivery)|e(nterprise) searchterm?"""
         if len(arg) > 0:
-            return "https://jenkins.puppetlabs.com/search/?q=%s" % qp(arg)
+            sargs = arg.split()
+            url = ""
+            if re.match(r"^fo?s?s?$", sargs[0]):
+                url = "http://jenkins-foss.delivery.puppetlabs.net/"
+            elif re.match(r"^de?l?i?v?e?r?y?|re?l?e?a?s?e?$", sargs[0]):
+                url = "http://jenkins-release.delivery.puppetlabs.net/"
+            elif re.match(r"^en?t?e?r?p?r?i?s?e?$", sargs[0]):
+                url = "http://jenkins-enterprise.delivery.puppetlabs.net/"
+            else:
+                url = "https://jenkins.puppetlabs.com/"
+
+            if len(sargs) > 1:
+                url += "search/?q=%s" % qp(" ".join(sargs[1:]))
+
+            return url
         else:
             return "https://jenkins.puppetlabs.com/"
+    ci = jenkins
 
     def jive(self, arg):
         """Jive for client services"""
@@ -130,9 +158,11 @@ class BeanCommands(bunny1.Bunny1Commands):
         """Company info page"""
         return "https://sites.google.com/a/puppetlabs.com/main/company-information"
 
-    def int(self, arg):
+    def internalresources(self, arg):
         """Internal Resources - Lots of downloads"""
         return "http://int-resources.ops.puppetlabs.net/"
+    downloads = internalresources
+    intr = internalresources
 
     def intacct(self, arg):
         """Intacct hours reporting"""
@@ -147,7 +177,7 @@ class BeanCommands(bunny1.Bunny1Commands):
     def library(self, arg):
         """Puppet Library search"""
         if len(arg) > 0:
-           return "http://www.librarything.com/catalog/puppetlabs&deepsearch=%s" % qp(arg) 
+           return "http://www.librarything.com/catalog/puppetlabs&deepsearch=%s" % qp(arg)
         else:
             return "http://www.librarything.com/catalog/puppetlabs"
     li = library
@@ -166,11 +196,15 @@ class BeanCommands(bunny1.Bunny1Commands):
     def neptune(self, arg):
         """Neptune builds"""
         return "http://neptune.delivery.puppetlabs.net/"
-    n = neptune        
+    n = neptune
 
     def okr(self, arg):
         """Company Objectives and Key Results"""
         return "https://sites.google.com/a/puppetlabs.com/okr/home"
+
+    def oldvideos(self, arg):
+        """Where videos used to live (not updated)"""
+        return "http://videos.puppetlabs.net/"
 
     def org(self, arg):
         """Company Org Chart"""
@@ -210,11 +244,15 @@ class BeanCommands(bunny1.Bunny1Commands):
             return "http://forge.puppetlabs.com/"
     pf = puppet_forge
 
+    def puppet_vagrant(self, arg):
+        """Vagrant boxes with Puppet installed (or not)"""
+        return "http://puppet-vagrant-boxes.puppetlabs.com/"
+
     def redmine(self, arg):
         """Redmine issue tracking (migrating to Jira)"""
         if len(arg) > 0:
             return "https://projects.puppetlabs.com/search?q=%s" % qp(arg)
-        else:    
+        else:
             return "https://projects.puppetlabs.com"
     r = redmine
 
@@ -222,6 +260,13 @@ class BeanCommands(bunny1.Bunny1Commands):
         """Office supplies provider. Send link to supplies to Char (char@puppetlabs.com)"""
         return "http://www.jthayer.com/"
 
+    def travis(self, arg):
+        """Travis testing dashboard. USAGE: travis|t puppet|hiera|facter"""
+        if len(arg) > 0:
+            return "https://travis-ci.org/puppetlabs/%s" % qp(arg)
+        else:
+            return "https://travis-ci.org/puppetlabs/puppet"
+    trav = travis
 
     def trello(self, arg):
         """Open/Search Trello board"""
@@ -236,6 +281,12 @@ class BeanCommands(bunny1.Bunny1Commands):
     def ustream(self, arg):
         """Puppet UStream"""
         return "http://www.ustream.tv/channel/puppet-labs"
+    bigpicture = ustream
+    bp = ustream
+
+    def videos(self, arg):
+        """Confluence videos"""
+        return "https://confluence.puppetlabs.com/display/VID/Videos"
 
     def zendesk(self, arg):
         """Zendesk Support Site"""
